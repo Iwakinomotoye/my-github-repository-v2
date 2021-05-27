@@ -73,9 +73,10 @@ repositories.nodes.forEach(repository => {
     let timeAgo = (currentDate.getTime()) - (pushedAtDate.getTime());
     // timeAgo in days
     timeAgo = timeAgo / (60 * 60 * 24 * 1000);
+    roundedTimeAgo = Math.round(timeAgo);
 
     // code to get when the repository was last updated
-    if (timeAgo > 30) {
+    if (roundedTimeAgo > 30) {
         timeAgo = Math.round(timeAgo);
         const month = months[pushedAtDate.getMonth()];
         let day = pushedAtDate.getDate();
@@ -85,18 +86,18 @@ repositories.nodes.forEach(repository => {
         if (year !== currentYear) {
             timeAgo = "Updated " + month + " " + day + ", " + year;
         }
-    } else if (timeAgo < 30 && timeAgo > 2) {
+    } else if (roundedTimeAgo < 30 && roundedTimeAgo > 2) {
         timeAgo = "Updated " + Math.round(timeAgo) + " days ago"
-    } else if (timeAgo < 2 && timeAgo > 1) {
+    } else if (roundedTimeAgo < 2 && roundedTimeAgo > 1) {
         timeAgo = Math.round(timeAgo * 24 * 60);
         timeAgo = "Updated yesterday";
-    } else if (timeAgo < 2 && timeAgo > (1 / 24)) {
+    } else if (roundedTimeAgo < 2 && roundedTimeAgo > (1 / 24)) {
         timeAgo = Math.round(timeAgo * 24);
         timeAgo = "Updated " + timeAgo + " hours ago";
-    } else if (timeAgo < (1 / 24) && timeAgo > (1 / (60 * 24))) {
+    } else if (roundedTimeAgo < (1 / 24) && roundedTimeAgo > (1 / (60 * 24))) {
         timeAgo = Math.round(timeAgo * 24 * 60);
         timeAgo = "Updated " + timeAgo + " minutes ago";
-    } else if (timeAgo < (1 / (60 * 24)) && timeAgo > (1 / (60 * 60 * 24))) {
+    } else if (roundedTimeAgo < (1 / (60 * 24)) && roundedTimeAgo > (1 / (60 * 60 * 24))) {
         timeAgo = Math.round(timeAgo * 24 * 60 * 60);
         timeAgo = "Updated " + timeAgo + " seconds ago";
     }
