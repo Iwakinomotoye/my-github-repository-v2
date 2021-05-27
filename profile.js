@@ -104,6 +104,8 @@ repositories.nodes.forEach(repository => {
 
     } else if (roundedTimeAgo < 60 && roundedTimeAgo >= 1) {
         timeAgo = "Updated " + roundedTimeAgo + (roundedTimeAgo > 1 ? " seconds ago" : "second ago");
+    } else {
+        timeAgo = "Updated Now";
     }
 
     // code to render the return data to the dom
