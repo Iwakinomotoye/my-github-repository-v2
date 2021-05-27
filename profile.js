@@ -82,10 +82,10 @@ repositories.nodes.forEach(repository => {
         const month = months[pushedAtDate.getMonth()];
         let day = pushedAtDate.getDate();
         let year = pushedAtDate.getFullYear();
-        timeAgo = "Updated " + month + " " + day;
+        timeAgo = "Updated on " + month + " " + day;
 
         if (year !== currentYear) {
-            timeAgo = "Updated " + month + " " + day + ", " + year;
+            timeAgo = "Updated on " + month + " " + day + ", " + year;
         }
 
     } else if (dayTimeAgo <= 31 && dayTimeAgo >= 2) {
