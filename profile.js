@@ -71,13 +71,14 @@ repositories.nodes.forEach(repository => {
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     const pushedAtDate = new Date(pushedAt);
     let timeAgo = (currentDate.getTime()) - (pushedAtDate.getTime());
-    // timeAgo in days
-    timeAgo = timeAgo / (60 * 60 * 24 * 1000);
-    roundedTimeAgo = Math.round(timeAgo);
+
+    timeAgo = timeAgo / 1000;
+    let minTimeAgo = Math.round(timeAgo / 60);
+    let hourTimeAgo = Math.round(timeAgo / (60 * 60));
+    let dayTimeAgo = Math.round(timeAgo / (60 * 60 * 24));
 
     // code to get when the repository was last updated
-    if (roundedTimeAgo > 30) {
-        timeAgo = Math.round(timeAgo);
+    if (dayTimeAgo > 31) {
         const month = months[pushedAtDate.getMonth()];
         let day = pushedAtDate.getDate();
         let year = pushedAtDate.getFullYear();
@@ -86,20 +87,21 @@ repositories.nodes.forEach(repository => {
         if (year !== currentYear) {
             timeAgo = "Updated " + month + " " + day + ", " + year;
         }
-    } else if (roundedTimeAgo < 30 && roundedTimeAgo > 2) {
-        timeAgo = "Updated " + Math.round(timeAgo) + " days ago"
-    } else if (roundedTimeAgo < 2 && roundedTimeAgo > 1) {
-        timeAgo = Math.round(timeAgo * 24 * 60);
+
+    } else if (dayTimeAgo <= 31 && dayTimeAgo >= 2) {
+        timeAgo = "Updated " + dayTimeAgo + " days ago"
+        
+    } else if (dayTimeAgo === 1) {
         timeAgo = "Updated yesterday";
-    } else if (roundedTimeAgo < 2 && roundedTimeAgo > (1 / 24)) {
-        timeAgo = Math.round(timeAgo * 24);
-        timeAgo = "Updated " + timeAgo + " hours ago";
-    } else if (roundedTimeAgo < (1 / 24) && roundedTimeAgo > (1 / (60 * 24))) {
-        timeAgo = Math.round(timeAgo * 24 * 60);
-        timeAgo = "Updated " + timeAgo + " minutes ago";
-    } else if (roundedTimeAgo < (1 / (60 * 24)) && roundedTimeAgo > (1 / (60 * 60 * 24))) {
-        timeAgo = Math.round(timeAgo * 24 * 60 * 60);
-        timeAgo = "Updated " + timeAgo + " seconds ago";
+
+    } else if (hourTimeAgo < 24 && hourTimeAgo >= 1) {
+        timeAgo = "Updated " + hourTimeAgo + (hourTimeAgo > 1 ? " hours ago" : " hour ago");
+
+    } else if (minTimeAgo < 60 && minTimeAgo >= 1) {
+        timeAgo = "Updated " + minTimeAgo + (minTimeAgo > 1 ? " minutes ago" : " minute ago");
+
+    } else if (timeAgo < 60 && timeAgo >= 1) {
+        timeAgo = "Updated " + timeAgo + (timeAgo > 1 ? " seconds ago" : "second ago");
     }
 
     // code to render the return data to the dom
