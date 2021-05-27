@@ -1,3 +1,4 @@
+"use strict";
 const usernameForm = document.getElementById("username-form");
 const okay = document.getElementById("okay");
 const modalBg = document.querySelector(".modal-bg");

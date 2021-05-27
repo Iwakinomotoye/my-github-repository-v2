@@ -1,3 +1,4 @@
+"use strict";
 const currentDate = new Date();
 const currentYear = currentDate.getFullYear();
 const userData = JSON.parse(window.localStorage.getItem("repository"));
@@ -73,7 +74,7 @@ repositories.nodes.forEach(repository => {
     let timeAgo = (currentDate.getTime()) - (pushedAtDate.getTime());
 
     timeAgo = timeAgo / 1000;
-    roundedTimeAgo = Math.round(timeAgo);
+    let roundedTimeAgo = Math.round(timeAgo);
     let minTimeAgo = Math.round(timeAgo / 60);
     let hourTimeAgo = Math.round(timeAgo / (60 * 60));
     let dayTimeAgo = Math.round(timeAgo / (60 * 60 * 24));
