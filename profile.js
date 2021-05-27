@@ -73,6 +73,7 @@ repositories.nodes.forEach(repository => {
     let timeAgo = (currentDate.getTime()) - (pushedAtDate.getTime());
 
     timeAgo = timeAgo / 1000;
+    roundedTimeAgo = Math.round(timeAgo);
     let minTimeAgo = Math.round(timeAgo / 60);
     let hourTimeAgo = Math.round(timeAgo / (60 * 60));
     let dayTimeAgo = Math.round(timeAgo / (60 * 60 * 24));
@@ -100,8 +101,8 @@ repositories.nodes.forEach(repository => {
     } else if (minTimeAgo < 60 && minTimeAgo >= 1) {
         timeAgo = "Updated " + minTimeAgo + (minTimeAgo > 1 ? " minutes ago" : " minute ago");
 
-    } else if (timeAgo < 60 && timeAgo >= 1) {
-        timeAgo = "Updated " + timeAgo + (timeAgo > 1 ? " seconds ago" : "second ago");
+    } else if (roundedTimeAgo < 60 && roundedTimeAgo >= 1) {
+        timeAgo = "Updated " + roundedTimeAgo + (roundedTimeAgo > 1 ? " seconds ago" : "second ago");
     }
 
     // code to render the return data to the dom
